@@ -10,14 +10,15 @@ export default function Labs() {
             <h1>Hao Pei 2024 Summer1</h1>
             <h1>Labs</h1>
             <TOC />
+            <h1>My GitHub Repository</h1>
+            <a href='https://github.com/haorup/kanbas-react-web-app'>GitHub</a>
             <Routes>
-
+                <Route path="/" element={<Navigate to="Lab1" />} />
                 <Route path="/Lab1" element={<Lab1 />} />
                 <Route path="/Lab2" element={<Lab2 />} />
                 <Route path="/Lab3" element={<Lab3 />} />
             </Routes>
-            <h1>My GitHub Repository</h1>
-            <a href='https://github.com/haorup/kanbas-react-web-app'>GitHub</a>
+
         </div>
     );
 }
