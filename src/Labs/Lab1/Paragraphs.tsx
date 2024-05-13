@@ -31,5 +31,5 @@ export default function Paragraphs() {
           tag to tell browsers to render the gaps.
           </p>
           </div>
-    )
+    );
 }

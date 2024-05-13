@@ -81,5 +81,5 @@ export default function Tables() {
           </tfoot>
         </table>
           </div>
-    )
+    );
 }

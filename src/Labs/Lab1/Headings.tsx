@@ -13,5 +13,5 @@ export default function Headings() {
             for different sizes: h1, h2, h3, h4, h5, and h6. Tag h1 is the largest
             heading and h6 is the smallest heading.
           </div>
-    )
+    );
 }

@@ -13,5 +13,5 @@ export default function Images() {
             <br />
             <img id="wd-teslabot" src="images/teslabot.jpg" height="200px" />
           </div>
-    )
+    );
 }

@@ -41,5 +41,5 @@ export default function Lists() {
                 <li>Confessions of a Mask</li>
               </ul>
           </div>
-    )
+    );
 }
