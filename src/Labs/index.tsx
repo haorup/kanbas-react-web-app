@@ -7,7 +7,7 @@ import TOC from "./TOC"
 export default function Labs() {
     return(
         <div  id="wd-labs">
-            <h1>Hao Pei 2024 Summer1</h1>
+            <h1>Hao Pei 2024 Summer Full</h1>
             <h1>Labs</h1>
             <TOC />
             <h1>My GitHub Repository</h1>
