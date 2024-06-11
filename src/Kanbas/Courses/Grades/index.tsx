@@ -6,7 +6,7 @@ import "./style.css"
 
 export default function Grades() {
     return (
-        <div id="wd-grades" className="d-flex flex-column float-end text-nowrap" style={{ width: '1200px' }}>
+        <div id="wd-grades" className="d-flex flex-column text-nowrap pl-8" >
             <div className="row mb-3">
                 <div className="mb-3 flex">
                     <button id="wd-grades-setting-buttons" className="btn btn-lg btn-secondary float-end me-1 text-dark">
