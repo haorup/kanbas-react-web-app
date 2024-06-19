@@ -2,9 +2,23 @@ import { IoMdSettings } from "react-icons/io";
 import { FaFileImport, FaSearch } from "react-icons/fa";
 import { FaFileExport } from "react-icons/fa";
 import { CiFilter } from "react-icons/ci";
+import * as db from "../../Database";
 import "./style.css"
+import { useParams } from "react-router";
 
 export default function Grades() {
+    const { cid } = useParams();
+    // retrieve the list of students id enrolled in the course
+    const studentList = db.enrollments.filter((enrollment) => enrollment.course === cid);
+    // retrieve the list of students' information from the user database using the student id
+    const students = studentList.map(student => {
+        const user = db.users.find(user => user._id === student.user);
+        return user;
+    });
+    // retrieve the list of assignments in the course using the course id.
+    const assignmentList = db.assignments.filter((assignment) => assignment.course === cid);
+
+
     return (
         <div id="wd-grades" className="d-flex flex-column text-nowrap pl-8" >
             <div className="row mb-3">
@@ -66,61 +80,28 @@ export default function Grades() {
             <div className="row mb-3">
                 <div className="table-responsive ">
                     <table className="table table-bordered table-striped">
-
                         <tbody>
-                        <tr>
+                            <tr style={{ fontWeight: 'bold' }}>
                                 <td>Student Name</td>
-                                <td>A1 SETUP Out of 100</td>
-                                <td>A2 HTML Out of 100</td>
-                                <td>A3 CSS Out of 100</td>
-                                <td>A4 BOOTSTRAP Out of 100</td>
-                                <td>A1 SETUP Out of 100</td>
-
+                                {assignmentList.map((assignment) => (
+                                    <td>{assignment?.title}</td>
+                                ))}
                             </tr>
-                            <tr>
-                                <td><span className="table-name-text">Mike Alexander</span></td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                            </tr>
-
-                            <tr>
-                                <td><span className="table-name-text">Rafael Nadal</span></td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                            </tr>
-
-                            <tr>
-                                <td><span className="table-name-text">Zverev Alexander</span></td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                            </tr>
-
-                            <tr>
-                                <td><span className="table-name-text">Roger Federer</span></td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                            </tr>
-
-                            <tr>
-                                <td><span className="table-name-text">Carlos Alcaraz</span></td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                                <td>100%</td>
-                            </tr>
+                            {students.map((student) => (
+                                <tr>
+                                    <td><span className="table-name-text">
+                                        {student?.firstName} {student?.lastName}</span></td>
+                                        {/* fill the table with the grades of the students for each assignment */}
+                                    {Array(assignmentList.length).fill(null).map((_, index) => {
+                                        const grade = db.grades.filter((grade) => grade.student === student?._id)[index];
+                                        return (
+                                            <td>
+                                                {grade ? grade.grade : ''}
+                                            </td>
+                                        );
+                                    })}
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>

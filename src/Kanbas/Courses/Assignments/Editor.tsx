@@ -1,36 +1,40 @@
+import { useLocation, useParams } from "react-router-dom";
+import * as db from "../../Database";
+
 export default function AssignmentEditor() {
+    const { cid, assignmentId } = useParams();
+    const assignment = db.assignments.find((assignment) => assignment._id === assignmentId);
+    if (!assignment) {
+        return <div>Assignment not found</div>;
+    }
+
     return (
         <div id="wd-assignments-editor" className="m-5" style={{ width: '800px' }}>
             <div className="d-felx flex-column p-3 m-3 ">
                 <div className="mb-3">
-                    <label htmlFor="wd-name" className="mb-3" >Assignment Name</label>
-                    <input id="wd-name" className="form-control" value="A1" />
+                    <label htmlFor="wd-name" className="mb-3"
+                        style={{ fontWeight: 'bold' }}>Assignment Name</label>
+                    <input id="wd-name" className="form-control"
+                        value={assignment && assignment._id + " " + assignment.title} />
                 </div>
 
                 <div className="mb-3">
                     <textarea id="wd-description" className="form-control" rows={10}>
-                        The assignment is available online
-                        Submit a link to the landing page of of your Web application running on Netlify.
-
-                        The landing page should include the following:
-
-                        Your full name and section
-                        Links to each of the lab assignments
-                        Link to the Kanbas application
-                        Links to all relevant source code repositories
-                        The Kanbas application should include a link to navigate back to the landing page.
+                        {assignment && assignment.description}
                     </textarea>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="wd-points" className="col-sm-3 col-formlabel">Points</label>
+                    <label htmlFor="wd-points" className="col-sm-3 col-formlabel"
+                        style={{ fontWeight: 'bold' }}>Points</label>
                     <div className="col-sm-9">
-                        <input id="wd-points" value={100} className="form-control"></input>
+                        <input id="wd-points" value={assignment.points} className="form-control"></input>
                     </div>
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="wd-group" className="col-sm-3 col-formlabel ">Assignment Group</label>
+                    <label htmlFor="wd-group" className="col-sm-3 col-formlabel "
+                        style={{ fontWeight: 'bold' }}>Assignment Group</label>
                     <div className="col-sm-9">
                         <select id="wd-group" className="form-select">
                             <option value="READINGS">READINGS</option>
@@ -41,7 +45,8 @@ export default function AssignmentEditor() {
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="wd-display-grade-as" className="col-sm-3 col-formlabel ">
+                    <label htmlFor="wd-display-grade-as" className="col-sm-3 col-formlabel"
+                        style={{ fontWeight: 'bold' }}>
                         Display Grade As</label>
                     <div className="col-sm-9">
                         <select id="wd-display-grade-as" className="form-select">
@@ -53,7 +58,8 @@ export default function AssignmentEditor() {
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="wd-submission-type" className="col-sm-3 col-formlabel ">
+                    <label htmlFor="wd-submission-type" className="col-sm-3 col-formlabel "
+                        style={{ fontWeight: 'bold' }}>
                         Submission Type</label>
                     <div className="col-sm-9">
                         <div className="form-control">
@@ -92,7 +98,8 @@ export default function AssignmentEditor() {
                 </div>
 
                 <div className="mb-3 row">
-                    <label htmlFor="wd-assign-to" className="col-sm-3 col-formlabel ">
+                    <label htmlFor="wd-assign-to" className="col-sm-3 col-formlabel "
+                        style={{ fontWeight: 'bold' }}>
                         Assign</label>
                     <div className="col-sm-9">
                         <div className="form-control">
@@ -101,21 +108,21 @@ export default function AssignmentEditor() {
                             <label htmlFor="wd-due-date" className="mb-1 p-0" style={{ fontWeight: 'bold' }}>Due</label><br />
                             <input type="date" className=" form-control m-2 p-0"
                                 id="wd-due-date"
-                                value="2024-05-13" />
+                                value={assignment.dueDate} />
                             <div className="row">
-                            <div className="col-sm-6">
-                                <label htmlFor="wd-available-from"  style={{ fontWeight: "bold" }}>Available from</label>
+                                <div className="col-sm-6">
+                                    <label htmlFor="wd-available-from" style={{ fontWeight: "bold" }}>Available from</label>
 
                                     <input type="date" className=" form-control m-2 p-0 "
                                         id="wd-available-from"
-                                        value="2024-05-06" />
+                                        value={assignment.availableDate} />
                                 </div>
                                 <div className="col-sm-6">
-                                <label htmlFor="wd-available-until"  style={{ fontWeight: "bold" }}>Until</label>
+                                    <label htmlFor="wd-available-until" style={{ fontWeight: "bold" }}>Until</label>
 
                                     <input type="date" className=" form-control m-2 p-0 col-sm-4"
                                         id="wd-available-until"
-                                        value="2024-05-20" />
+                                        value={assignment.dueDate} />
                                 </div>
                             </div>
                         </div>
@@ -125,8 +132,14 @@ export default function AssignmentEditor() {
                 </div>
                 <hr />
                 <div className="text-nowrap d-flex p-0 m-2 float-end">
-                    <button id="wd-add-assignment-btn" className="btn btn-xs bg-secondary me-1">Cancel</button>
-                    <button id="wd-add-assignment-btn" className="btn btn-lg btn-danger me-1">Save</button>
+                    <button id="wd-add-assignment-btn"
+                        className="btn btn-xs bg-secondary me-1"
+                        onClick={() => window.location.href=`#/Kanbas/Courses/${cid}/Assignments`}>
+                        Cancel</button>
+                    <button id="wd-add-assignment-btn"
+                        className="btn btn-lg btn-danger me-1"
+                        onClick={() => window.location.href=`#/Kanbas/Courses/${cid}/Assignments`}>
+                        Save</button>
                 </div>
 
 
