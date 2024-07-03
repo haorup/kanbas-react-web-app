@@ -15,8 +15,7 @@ export default function TodoForm() {
             <button
                 onClick={() => dispatch(updateTodo(todo))}
                 className="btn btn-warning me-2 float-end"
-                id="wd-update-todo-click"
-            >
+                id="wd-update-todo-click">
                 {" "}
                 Update{" "}
             </button>
