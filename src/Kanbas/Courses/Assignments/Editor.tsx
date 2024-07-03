@@ -1,5 +1,4 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
-import * as db from "../../Database";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment, setAssignment,clearAssignment } from "./reducer";
 
@@ -13,7 +12,7 @@ export default function AssignmentEditor() {
     const navigate = useNavigate();
     const handleSaveClick = (e: any) => {
     if (assignmentId === cid) {
-        dispatch(addAssignment({ course: cid }));
+        dispatch(addAssignment({ course: cid}));
     } else{
         dispatch(updateAssignment(assignment));
     }
@@ -36,7 +35,7 @@ export default function AssignmentEditor() {
                     <input id="wd-name" className="form-control"
                         placeholder="Assignment Name"
                         value={assignment?.title || ""}
-                        onChange={(e) => dispatch(setAssignment({ ...assignment, title: e.target.value }))} />
+                        onChange={(e) => dispatch(setAssignment({ ...assignment, title: e.target.value.toString()}))} />
                 </div>
 
                 <div className="mb-3">

@@ -6,8 +6,7 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import { GiNotebook } from "react-icons/gi";
 import "./index.css";
 import { useParams } from "react-router";
-import { addAssignment, updateAssignment, deleteAssignment, setAssignment } from "./reducer";
-import { useState } from "react";
+import { deleteAssignment, setAssignment } from "./reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
@@ -47,16 +46,7 @@ export default function Assignments() {
                                     <BsGripVertical className="me-2 fs-3" />
                                     <GiNotebook className="me-0 fs-3 text-success" />
                                 </div>
-
                                 <div className="col-9 d-flex flex-column justify-content-center">
-                                    {/* <a className="wd-assignment-link"
-                                        href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
-                                        style={{
-                                            textDecoration: "none", color: "black",
-                                            fontWeight: "bold"
-                                        }}>
-                                        {assignment._id + " " + assignment.title}
-                                    </a> */}
                                     <Link
                                         className="wd-assignment-link"
                                         to={`/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}
@@ -64,15 +54,12 @@ export default function Assignments() {
                                         onClick={()=>dispatch(setAssignment(assignment)) }>
                                         {assignment._id + " " + assignment.title}
                                     </Link>
-
                                     <p>
                                         <span style={{ color: "red" }}>MultAssignments</span> |
                                         <span style={{ fontWeight: "bold" }}> Not Available</span> until {assignment.availableDate} |<br />
                                         <span style={{ fontWeight: "bold" }}>Due</span> {assignment.dueDate} | points: {assignment.points}
                                     </p>
-
                                 </div>
-
                                 <div className="col-2">
                                     <AssignmentControlButtons
                                         assignmentId={assignment._id}
