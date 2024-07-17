@@ -5,7 +5,7 @@
   "description": "Node.js HTTP web server for the Kanbas application",
   "main": "index.js",
   "scripts": {
-    "install": "nodemon App.js",
+    "install": "node App.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node App.js"
   },
