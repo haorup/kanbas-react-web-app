@@ -6,15 +6,33 @@ import AssignmentControlButtons from "./AssignmentControlButtons";
 import { GiNotebook } from "react-icons/gi";
 import "./index.css";
 import { useParams } from "react-router";
-import { deleteAssignment, setAssignment } from "./reducer";
+import { deleteAssignment, setAssignment, setAssignments } from "./reducer";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import * as client from "./client";
+import { useEffect } from "react";
 
 export default function Assignments() {
     const { cid } = useParams();
-
     const { assignments } = useSelector((state: any) => state.assignmentsReducer);
     const dispatch = useDispatch();
+
+
+    const fetchAssignments = async () => {
+        const assignments = await client.findAssignmentsForCourse(cid as string);
+        dispatch(setAssignments(assignments));
+    };
+
+    const removeAssignment = async (assignmentId: string) => {
+           client.deleteAssignment(assignmentId);
+         dispatch(deleteAssignment(assignmentId));
+    }
+
+    useEffect(() => {
+        fetchAssignments();
+    }, []);
+
+
     return (
         <div id="wd-assignments">
 
@@ -63,7 +81,7 @@ export default function Assignments() {
                                 <div className="col-2">
                                     <AssignmentControlButtons
                                         assignmentId={assignment._id}
-                                        deleteAssignment={(assignmentId) => dispatch(deleteAssignment(assignmentId))} />
+                                        deleteAssignment={(assignmentId) => removeAssignment(assignmentId)} />
                                 </div>
                             </div>
 

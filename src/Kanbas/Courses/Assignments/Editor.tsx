@@ -1,6 +1,7 @@
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addAssignment, updateAssignment, setAssignment,clearAssignment } from "./reducer";
+import * as client from "./client";
 
 
 export default function AssignmentEditor() {
@@ -10,20 +11,33 @@ export default function AssignmentEditor() {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const createAssignment = async (assignment: any) => {
+        const newAssignment =  client.createAssignment(
+            cid as string, assignment);
+        dispatch(addAssignment(newAssignment));
+    };
+
+    const saveAssignment = async (assignment: any) => {
+        const status = await client.updateAssignment(assignment);
+        dispatch(updateAssignment(assignment));
+    }
+
+
     const handleSaveClick = (e: any) => {
     if (assignmentId === cid) {
-        dispatch(addAssignment({ course: cid}));
+        createAssignment({...assignment, course: cid});
     } else{
-        dispatch(updateAssignment(assignment));
+        saveAssignment((assignment));
     }
         dispatch(clearAssignment());
         navigate(`/Kanbas/Courses/${cid}/Assignments`);
     };
+
     const handleCancelClick = (e: any) => {
             dispatch(clearAssignment());
             navigate(`/Kanbas/Courses/${cid}/Assignments`);
         };
-
 
     return (
         <div id="wd-assignments-editor" className="m-5" style={{ width: '800px' }}>
