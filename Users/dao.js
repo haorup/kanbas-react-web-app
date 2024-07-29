@@ -5,6 +5,7 @@ export const createUser = (user) => {
 }
 
 export const findAllUsers = () => model.find();
+
 export const findUserById = (userId) => model.findById(userId);
 
 export const findUsersByRole = (role) => model.find({ role: role });
