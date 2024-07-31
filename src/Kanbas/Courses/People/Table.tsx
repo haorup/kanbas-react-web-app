@@ -3,6 +3,7 @@ import * as client from "./client";
 import PeopleDetails from "./Details";
 import { FaPlus } from "react-icons/fa6";
 import { Link, useParams } from "react-router-dom";
+
 export default function PeopleTable() {
   const { cid } = useParams();
   const [users, setUsers] = useState<any[]>([]);
@@ -48,6 +49,7 @@ export default function PeopleTable() {
   useEffect(() => {
     fetchUsers();
   }, []);
+
   return (
     <div id="wd-people-table">
       <PeopleDetails fetchUsers={fetchUsers}/>

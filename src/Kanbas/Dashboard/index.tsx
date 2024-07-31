@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import * as db from "../Database";
+
 export default function Dashboard(
   { courses, course, setCourse, addNewCourse,
     deleteCourse, updateCourse }: {
@@ -36,9 +36,9 @@ export default function Dashboard(
         <div className="row row-cols-1 row-cols-md-5 g-4">
           {courses.map((course) => (
             <div className="wd-dashboard-course col" style={{ width: "300px" }}>
-              <Link to={`/Kanbas/Courses/${course._id}/Home`} className="text-decoration-none" >
+              <Link to={`/Kanbas/Courses/${course.number}/Home`} className="text-decoration-none" >
                 <div className="card rounded-3 overflow-hidden">
-                  <img src={`/images/${course.pictureName}`} height="{160}" />
+                  <img src={`/images/${course.number}.jpg`} height="{160}" />
                   <div className="card-body">
                     <span className="wd-dashboard-course-link"
                       style={{ textDecoration: "none", color: "navy", fontWeight: "bold" }} >
@@ -47,7 +47,7 @@ export default function Dashboard(
                     <p className="wd-dashboard-course-title card-text" style={{ maxHeight: 53, overflow: "hidden" }}>
                       {course.description}
                     </p>
-                    <Link to={`/Kanbas/Courses/${course._id}/Home`} className="btn btn-primary">Go</Link>
+                    <Link to={`/Kanbas/Courses/${course.number}/Home`} className="btn btn-primary">Go</Link>
                     {/* Delete button */}
                     <button onClick={(event) => {
                       event.preventDefault();
