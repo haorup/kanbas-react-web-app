@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import "dotenv/config";
 import session from 'express-session';
-import "dotenv/config";
+
 
 import UserRoutes from './Users/routes.js';
 import Hello from './Hello.js';
