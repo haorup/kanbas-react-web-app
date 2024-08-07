@@ -7,13 +7,16 @@ import AssignmentEditor from "./Assignments/Editor";
 import Grades from "./Grades";
 import { FaAlignJustify } from "react-icons/fa6";
 import PeopleTable from "./People/Table";
+import QuizEditor from "./QuizEditor";
+import Quizzes from "./Quizzes";
+import QuizDetailScreen from "./Quizzes/QuizDetailScreen";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
     const { pathname } = useLocation();
     const course = courses.find((course) => course._id === cid);
 
-    const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
+    // const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
 
 
     return (
@@ -42,6 +45,9 @@ export default function Courses({ courses }: { courses: any[]; }) {
                             element={<Grades />} />
                         <Route path="People" element={<PeopleTable />} />
                         <Route path="People/:uid" element={<PeopleTable />} />
+                        <Route path="Quizzes" element={<Quizzes />} />
+                        <Route path="Quizzes/:qid/quizDetailScreen" element={<QuizDetailScreen/>} />
+                        <Route path="Quizzes/:qid/editing/*" element={<QuizEditor />} />
                     </Routes>
 
                 </div>
