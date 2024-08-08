@@ -21,7 +21,6 @@ export default function Quizzes() {
         dispatch(setQuizzes(quizzes));
     };
 
-
     useEffect(() => {
         fetchQuizzes();
     }, []);

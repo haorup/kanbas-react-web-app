@@ -1,13 +1,27 @@
+import { useEffect } from "react";
 import { FaPencil } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import { setQuiz } from "./reducer";
+import * as client from "./client";
+import { useDispatch } from "react-redux";
 
 export default function QuizDetailScreen() {
-    const { cid, qId } = useParams();
+    const { cid, qid } = useParams();
+    const dispatch = useDispatch();
+    const {quiz} = useSelector((state: any) => state.quizzesReducer);
+
+    const fetchQuiz = async () => {
+        const quiz = await client.findQuizById(qid as string);
+        dispatch(setQuiz(quiz));
+        };
 
 
-    const quiz = useSelector((state: any) => state.quizzesReducer.quiz);
+    useEffect(() => {
+        fetchQuiz();
+    }, []);
+
     return (
         <div id="wd-quiz-detail-screen">
             <div id="wd-quiz-detail-screen-buttons" className="text-center m-2 p-2">

@@ -10,7 +10,5 @@
   #wd-quiz-editor-tag .list-group-item.active {
     background-color: transparent;
     color: black;
-    border-color: #007bff;
-    border: 1px solid #007bff;
-    border-top: 4px solid #007bff;
+
 }

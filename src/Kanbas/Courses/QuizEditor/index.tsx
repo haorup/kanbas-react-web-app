@@ -7,9 +7,9 @@ import { useSelector } from "react-redux";
 export default function QuizEditor() {
   const quiz = useSelector((state: any) => state.quizzesReducer.quiz);
   return (
-    <div className="container ms-4 p-3">
+    <div className="container ms-4 p-1">
       <div className="row" id="wd-quiz-editor-tabs ">
-        <div className="col-12 m-2 p-3">
+        <div className="col-12 m-2 p-0">
           <h3 className="float-end me-5 p-1">Points: {quiz.points}</h3>
         </div>
         <div className="col-2">

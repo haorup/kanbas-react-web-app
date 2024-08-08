@@ -1,4 +1,4 @@
-/* Hide the default radio button */
+
 .wd-quizzes-add-question-custom-radio {
     display: none;
 }
@@ -8,16 +8,16 @@
 }
 
 .wd-quizzes-add-question-custom-label {
-    font-size: 1.2em; /* Change to your desired font size */
+    font-size: 1.2em;
 }
 
 .wd-quizzes-add-question-custom-radio:checked + .wd-quizzes-add-question-custom-label .wd-add-question-custom-arrow{
     display: inline-block;
-    color: green; /* Change to your desired color */
+    color: green;
 }
 
 .wd-quizzes-add-question-custom-radio:checked + .wd-quizzes-add-question-custom-label {
-    color: green; /* Change to your desired color */
+    color: green;
 }
 
 
