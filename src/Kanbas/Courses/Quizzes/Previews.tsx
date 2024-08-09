@@ -12,7 +12,7 @@ interface Question {
   questionPoints: string;
   questionContent: string;
   options?: string[];
-  CorrectAns: string | boolean;
+  CorrectAns: string | boolean | string[];
   questionDifficulty: string;
 }
 
@@ -46,12 +46,14 @@ interface Quiz {
 export default function QuizPreview() {
   // const [role, setRole] = useSSTUDENT"); // Set default role STUDENT
   // retrieve the current user from the Redux store
-  const {currentUser} = useSelector((state: any) => state.accountReducer);
-    const role = currentUser.role;
-  const { cid, qid } = useParams<{ cid: string; qid: string  }>();
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const role = currentUser.role;
+  const { cid, qid } = useParams<{ cid: string; qid: string }>();
   const navigate = useNavigate();
   const [quiz, setQuiz] = useState<Quiz | null>(null);
-  const [answers, setAnswers] = useState<{ [key: number]: string | boolean }>({});
+  const [answers, setAnswers] = useState<{ [key: number]: string | boolean }>(
+    {}
+  );
   const [score, setScore] = useState<number | null>(null);
   const [attempts, setAttempts] = useState<number>(0);
 
@@ -66,7 +68,9 @@ export default function QuizPreview() {
         console.log(qid);
 
         //Fetch previous attempts and score
-        const attemptsResponse = await axios.get(`${QUIZZES_API}/${qid}/attempts`);
+        const attemptsResponse = await axios.get(
+          `${QUIZZES_API}/${qid}/attempts`
+        );
         const attemptsData = attemptsResponse.data;
 
         if (attemptsData) {
@@ -94,7 +98,9 @@ export default function QuizPreview() {
         // Calculate the score
         let calculatedScore = 0;
         quiz.questions.forEach((question) => {
-          if (answers[question.questionId] === question.CorrectAns) {
+          if ((answers[question.questionId] === question.CorrectAns) ||
+            (Array.isArray(question.CorrectAns) &&
+              question.CorrectAns.includes(String(answers[question.questionId])))) {
             calculatedScore += parseInt(question.questionPoints);
           }
         });
@@ -135,7 +141,7 @@ export default function QuizPreview() {
       <div>
         {quiz.questions.map((question) => (
           <div key={question.questionId} className="mb-3">
-            <p>{question.questionContent}</p>
+            <p>{question.questionId}. {question.questionContent}</p>
             {question.questionType === "Multiple Choice" && question.options ? (
               question.options.map((option, index) => (
                 <label
@@ -145,8 +151,8 @@ export default function QuizPreview() {
                       ? option === question.CorrectAns
                         ? "text-success"
                         : answers[question.questionId] === option
-                        ? "text-danger"
-                        : ""
+                          ? "text-danger"
+                          : ""
                       : ""
                   }
                 >
@@ -155,12 +161,39 @@ export default function QuizPreview() {
                     name={`question-${question.questionId}`}
                     value={option}
                     checked={answers[question.questionId] === option}
-                    onChange={() => handleAnswerChange(question.questionId, option)}
+                    onChange={() =>
+                      handleAnswerChange(question.questionId, option)
+                    }
                     disabled={score !== null || role === "FACULTY"}
                   />
                   {option}
                 </label>
               ))
+            ) : question.questionType === "True/False" ? (
+              <div>
+                <label>
+                  <input
+                    type="radio"
+                    name={`question-${question.questionId}`}
+                    value="true"
+                    checked={answers[question.questionId] === true}
+                    onChange={() => handleAnswerChange(question.questionId, true)}
+                    disabled={score !== null || role === "FACULTY"}
+                  />
+                  True
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name={`question-${question.questionId}`}
+                    value="false"
+                    checked={answers[question.questionId] === false}
+                    onChange={() => handleAnswerChange(question.questionId, false)}
+                    disabled={score !== null || role === "FACULTY"}
+                  />
+                  False
+                </label>
+              </div>
             ) : (
               <input
                 type="text"
@@ -174,12 +207,16 @@ export default function QuizPreview() {
             {score !== null && (
               <span
                 className={
-                  answers[question.questionId] === question.CorrectAns
+                  (answers[question.questionId] === question.CorrectAns) ||
+                    (Array.isArray(question.CorrectAns) &&
+                      question.CorrectAns.includes(String(answers[question.questionId])))
                     ? "text-success"
                     : "text-danger"
                 }
               >
-                {answers[question.questionId] === question.CorrectAns
+                {(answers[question.questionId] === question.CorrectAns) ||
+                  (Array.isArray(question.CorrectAns) &&
+                    question.CorrectAns.includes(String(answers[question.questionId])))
                   ? "✓ Correct"
                   : "✗ Incorrect"}
               </span>
