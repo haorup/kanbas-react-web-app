@@ -1,11 +1,20 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate, useParams } from "react-router-dom";
 import Tab from "./Tab";
 import Questions from "./Questions";
 import { useSelector } from "react-redux";
 
 
 export default function QuizEditor() {
+  const { currentUser } = useSelector((state: any) => state.accountReducer);
+  const { cid, qid } = useParams();
+  const navigate = useNavigate();
   const quiz = useSelector((state: any) => state.quizzesReducer.quiz);
+
+  // check the user's account type
+  if (currentUser.role !== "FACULTY") {
+    navigate(`/Kanbas/Courses/${cid}/Quizzes`);
+  }
+
   return (
     <div className="container ms-4 p-1">
       <div className="row" id="wd-quiz-editor-tabs ">

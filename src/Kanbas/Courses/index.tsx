@@ -10,13 +10,13 @@ import PeopleTable from "./People/Table";
 import QuizEditor from "./QuizEditor";
 import Quizzes from "./Quizzes";
 import QuizDetailScreen from "./Quizzes/QuizDetailScreen";
+import Previews from "./Quizzes/Previews";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
     const { pathname } = useLocation();
     const course = courses.find((course) => course._id === cid);
 
-    // const links = ["Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
 
 
     return (
@@ -48,6 +48,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path="Quizzes" element={<Quizzes />} />
                         <Route path="Quizzes/:qid/quizDetailScreen" element={<QuizDetailScreen/>} />
                         <Route path="Quizzes/:qid/editing/*" element={<QuizEditor />} />
+                        <Route path="Quizzes/:qid/Preview" element={<Previews/>} />
                     </Routes>
 
                 </div>

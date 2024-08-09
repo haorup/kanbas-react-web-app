@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setQuestion, setQuiz, clearQuestion } from "../Quizzes/reducer";
 
 export default function QuestionEditor() {
+
     const quiz = useSelector((state: any) => state.quizzesReducer.quiz);
     const newQuestion = useSelector((state: any) => state.quizzesReducer.newQuestion);
     const dispatch = useDispatch();
@@ -120,6 +121,8 @@ export default function QuestionEditor() {
                 );
         }
     }
+
+
 
     return (
         <div id="wd-add-question-dialog" className="modal fade" data-bs-backdrop="static" data-bs-keyboard="false">
