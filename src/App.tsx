@@ -1,7 +1,8 @@
 import Kanbas from "./Kanbas";
-import Labs from './Labs';
+
 import { HashRouter, Route, Routes, Navigate } from 'react-router-dom';
-import "./index.css"
+import "./index.css";
+import TOC from "./TOC";
 
 function App() {
   return (
@@ -9,9 +10,8 @@ function App() {
     <div className="h-100">
 
       <Routes>
-      <Route path="/" element={<Navigate to="Labs" />} />
-      <Route path="/Labs/*"
-             element={<Labs />} />
+      <Route path="/" element={<TOC />} />
+
       <Route path="/Kanbas/*" element={<Kanbas />} />
       </Routes>
       {/* Kanbas */}
