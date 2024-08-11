@@ -4,8 +4,32 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   quizzes: [],
   quiz: {
+    _id: "",
+    title: "",
+    description: "",
+    type: "",
+    points: 0,
+    timeLimit: 0,
+    assignmentGroup: "",
+    shuffleAnswers: false,
+    multipleAttempts: false,
+    viewResponses: "",
+    showCorrectAnswers: "",
+    oneQuestionAtATime: false,
+    requireRespondusLockDown: false,
+    browserRequired: false,
+    requiredToViewQuizResults: false,
+    webcamRequired: false,
+    lockQuestionsAfterAnswering: false,
+    availableFrom: "",
+    availableUntil: "",
+    due: "",
+    status: "",
+    courses: "",
+    howManyAttempts: 0,
     questions: [] as any[],
   },
+
   newQuestion: {
     questionId: 0,
     questionContent: "",
@@ -27,6 +51,45 @@ const quizzesSlice = createSlice({
     setQuiz: (state, action) => {
       state.quiz = action.payload;
     },
+    addQuiz: (state, action) => {
+      const cid = action.payload;
+      const newQuiz = {
+        ...state.quiz,
+        _id: cid,
+        courses: cid,
+        title: "abc",
+      }
+      state.quiz = newQuiz;
+      setQuiz(newQuiz);
+    },
+    clearQuiz(state) {
+      state.quiz = {
+        _id: "",
+        title: "",
+        description: "",
+        type: "",
+        points: 0,
+        timeLimit: 0,
+        assignmentGroup: "",
+        shuffleAnswers: false,
+        multipleAttempts: false,
+        viewResponses: "",
+        showCorrectAnswers: "",
+        oneQuestionAtATime: false,
+        requireRespondusLockDown: false,
+        browserRequired: false,
+        requiredToViewQuizResults: false,
+        webcamRequired: false,
+        lockQuestionsAfterAnswering: false,
+        availableFrom: "",
+        availableUntil: "",
+        due: "",
+        status: "",
+        courses: "",
+        howManyAttempts: 0,
+        questions: [] as any[],
+      };
+    },
 
     clearQuestion: (state) => {
       state.newQuestion = {
@@ -37,7 +100,6 @@ const quizzesSlice = createSlice({
         questionDifficulty: "easy",
         options: [],
         CorrectAns: null,
-
       };
     },
     setQuestionOptions: (state, action) => {
@@ -55,5 +117,6 @@ const quizzesSlice = createSlice({
 });
 export const { setQuizzes, setQuiz, setQuestion,
   clearQuestion, setQuestionOptions,
-  setCorrectAns, } = quizzesSlice.actions;
+  setCorrectAns, addQuiz,
+  clearQuiz } = quizzesSlice.actions;
 export default quizzesSlice.reducer;
